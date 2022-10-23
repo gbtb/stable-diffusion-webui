@@ -86,7 +86,7 @@ def git_clone(url, dir, name, commithash=None):
     if commithash is not None:
         run(f'"{git}" -C {dir} checkout {commithash}', None, "Couldn't checkout {name}'s hash: {commithash}")
 
-        
+
 def version_check(commit):
     try:
         import requests
@@ -103,7 +103,7 @@ def version_check(commit):
     except Exception as e:
         print("versipm check failed",e)
 
-        
+
 def prepare_enviroment():
     torch_command = os.environ.get('TORCH_COMMAND', "pip install torch==1.12.1+cu113 torchvision==0.13.1+cu113 --extra-index-url https://download.pytorch.org/whl/cu113")
     requirements_file = os.environ.get('REQS_FILE', "requirements_versions.txt")
@@ -143,7 +143,7 @@ def prepare_enviroment():
 
     print(f"Python {sys.version}")
     print(f"Commit hash: {commit}")
-    
+
     if not is_installed("torch") or not is_installed("torchvision"):
         run(f'"{python}" -m {torch_command}', "Installing torch and torchvision", "Couldn't install torch")
 
@@ -176,20 +176,20 @@ def prepare_enviroment():
 
     os.makedirs(dir_repos, exist_ok=True)
 
-    git_clone(stable_diffusion_repo, repo_dir('stable-diffusion'), "Stable Diffusion", stable_diffusion_commit_hash)
-    git_clone(taming_transformers_repo, repo_dir('taming-transformers'), "Taming Transformers", taming_transformers_commit_hash)
-    git_clone(k_diffusion_repo, repo_dir('k-diffusion'), "K-diffusion", k_diffusion_commit_hash)
-    git_clone(codeformer_repo, repo_dir('CodeFormer'), "CodeFormer", codeformer_commit_hash)
-    git_clone(blip_repo, repo_dir('BLIP'), "BLIP", blip_commit_hash)
+    #git_clone(stable_diffusion_repo, repo_dir('stable-diffusion'), "Stable Diffusion", stable_diffusion_commit_hash)
+    #git_clone(taming_transformers_repo, repo_dir('taming-transformers'), "Taming Transformers", taming_transformers_commit_hash)
+    #git_clone(k_diffusion_repo, repo_dir('k-diffusion'), "K-diffusion", k_diffusion_commit_hash)
+    #git_clone(codeformer_repo, repo_dir('CodeFormer'), "CodeFormer", codeformer_commit_hash)
+    #git_clone(blip_repo, repo_dir('BLIP'), "BLIP", blip_commit_hash)
 
     if not is_installed("lpips"):
         run_pip(f"install -r {os.path.join(repo_dir('CodeFormer'), 'requirements.txt')}", "requirements for CodeFormer")
 
-    run_pip(f"install -r {requirements_file}", "requirements for Web UI")
+    #run_pip(f"install -r {requirements_file}", "requirements for Web UI")
 
     if update_check:
         version_check(commit)
-    
+
     if "--exit" in sys.argv:
         print("Exiting because of --exit argument")
         exit(0)
