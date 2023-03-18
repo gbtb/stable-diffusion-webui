@@ -16,6 +16,7 @@ from modules.paths import models_path
 model_dir = "Codeformer"
 model_path = os.path.join(models_path, model_dir)
 model_url = 'https://github.com/sczhou/CodeFormer/releases/download/v0.1.0/codeformer.pth'
+os.environ["CODEFORMER_ROOT_DIR"] = model_path
 
 have_codeformer = False
 codeformer = None

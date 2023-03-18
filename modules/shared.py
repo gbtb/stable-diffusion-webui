@@ -272,7 +272,7 @@ state.server_start = time.time()
 styles_filename = cmd_opts.styles_file
 prompt_styles = modules.styles.StyleDatabase(styles_filename)
 
-interrogator = modules.interrogate.InterrogateModels("interrogate")
+interrogator = modules.interrogate.InterrogateModels(os.path.join(models_path, "interrogate"))
 
 face_restorers = []
 
